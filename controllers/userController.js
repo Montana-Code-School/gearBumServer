@@ -5,6 +5,19 @@ function retrieveAllUsers (req, res){
     })
 }
 
+// var User = require("../models/userModel")
+
+function login (req, res){
+	return res.json({message: "to be implemented"})
+}
+function logout (req, res){
+	req.logout()
+	res.json({loggedOut: true})
+}
+
+
 module.exports = {
-	retrieveAllUsers
+	retrieveAllUsers,
+	login,
+	logout,
 }

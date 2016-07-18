@@ -23,7 +23,7 @@ module.exports = function (app, passport) {
   app.use(bodyParser.urlencoded({extended: true})); // for parsing application/x-www-form-urlencoded
   app.use(methodOverride());
   app.use(express.static(path.join(__dirname, '../..', 'public')));
-  app.use(postgresConnect);
+  app.use(postgresConnect.connectMiddleware);
 
   // I am adding this here so that the Heroku deploy will work
   // Indicates the app is behind a front-facing proxy,

@@ -10,15 +10,20 @@ var config = {
 };
 var pool
 
-module.exports = function(req, res, next){
-	pool = pool || new pg.Pool(config);
 
-	pool.connect(function(err, client, done) {
-  		if(err) {
-    		return console.error('error fetching client from pool', err);
-  		}
-  		req.db = client
-  		next()
-  	})
-
+function connectMiddleware(req, res, next){
+  getDB(function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      }
+      req.db = client
+      next()
+    })
 }
+
+function getDB(callback){
+    pool = pool || new pg.Pool(config);
+    pool.connect(callback)
+}
+
+module.exports = {getDB, connectMiddleware}

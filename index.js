@@ -11,13 +11,13 @@ fs.readdirSync(__dirname + '/models').forEach(function(file) {
 
 var isDev = process.env.NODE_ENV === 'development';
 
-//require('./config/passport')(passport);
+require('./config/passport')(passport);
 
 // Bootstrap application settings
 require('./config/express')(app, passport);
 
 // Bootstrap routes
-require('./config/routes')(app);
+require('./config/routes')(app, passport);
 
 app.listen(app.get('port'));
 

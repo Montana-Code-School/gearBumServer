@@ -2,12 +2,23 @@
 
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
-
+var bcrypt = require ('bcrypt-nodejs')
 // load up the user model
-var User            = require('../models/userModel');
+//var User            = require('../models/userModel');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
+
+
+    function generateHash(password) {
+        return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    };
+
+    function validPassword (password) {
+        return bcrypt.compareSync(password, this.password);
+    };
+
+
 
     // =========================================================================
     // passport session setup ==================================================
@@ -17,7 +28,7 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        done(null, user.usersid);
+        done(null, user.id);
     });
 
     // used to deserialize the user
@@ -44,7 +55,7 @@ module.exports = function(passport) {
 
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        User.findOne({ 'email' :  email }, function(err, user) {
+        User.findOne({ 'local.email' :  email }, function(err, user) {
             // if there are any errors, return the error before anything else
             if (err)
                 return done(err);
@@ -76,44 +87,22 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, email, password, done) {
-
-        // asynchronous
-        // User.findOne wont fire unless data is sent back
+        console.log('performing local signup')
         process.nextTick(function() {
-
-        // find a user whose email is the same as the forms email
-        // we are checking to see if the user trying to login already exists
-        User.findOne({ 'email' :  email }, function(err, user) {
-            // if there are any errors, return the error
-            if (err)
-                return done(err);
-
-            // check to see if theres already a user with that email
-            if (user) {
-                return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-            } else {
-                console.log('Creating new User')
-                // if there is no user with that email
-                // create the user
-                var newUser            = new User();
-
-                // set the user's local credentials
-                newUser.email    = email;
-                newUser.password = newUser.generateHash(password);
-                console.log('Saving new User', newUser)
-                // save the user
-                newUser.save(function(err) {
-                    console.log('saved new User', newUser,err)
-                    if (err)
-                        throw err;
-                    return done(null, newUser);
-                });
-            }
-
-        });    
-
-        });
-
+            req.db.query(`SELECT * from gb.gb_users WHERE email='${req.email}'`,(err,result) => {
+                if (err){
+                    return done(err)
+                }
+                if (result.rows[0]) {
+                    return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                } else {
+                    // set the user's local credentials
+                    var queryStr = `INSERT INTO gb.gb_users VALUES ('${req.body.email}', '${generateHash(password)}', '${req.body.username}', False, '${req.body.bio}', '${req.body.location}', False)`;
+                    req.db.query(queryStr, function(err, sqlRes){
+                        done(sqlRes)
+                    })
+                }
+            }) 
+        })
     }));
-
 };
