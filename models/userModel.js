@@ -65,7 +65,6 @@ User.prototype.validPassword = function(password) {
 User.prototype.save =function(callback){
 	db((err, client)=>{
 		var queryString = `INSERT INTO ${table} (${properties.filter(property=> this[property]).join(', ')}) VALUES (${properties.filter(property=> this[property] !== undefined).map(property => `'${this[property]}'`).join(', ')}) RETURNING usersid;`
-		console.log("Querying", queryString)
 		client.query(queryString, (err, resp) =>{
 			this.usersid = _.get(resp, 'rows[0].usersid', undefined)
 			callback(err, resp)
