@@ -12,7 +12,7 @@ var equipController = require('../controllers/equipController')
 
 module.exports = function(app, passport) {
 
-  //User Routes
+ 	//User Routes
   	router.get('/getUsers', userController.retrieveAllUsers)
 	
 	router.post('/login', passport.authenticate('local-login', {
@@ -33,21 +33,21 @@ module.exports = function(app, passport) {
 	}
 	})
 
-  router.post('/logout', userController.logout); 
+  	router.post('/logout', userController.logout); 
 
-  router.post('/signup', passport.authenticate('local-signup', {
+  	router.post('/signup', passport.authenticate('local-signup', {
         successRedirect : '/success', // redirect to the secure profile section
         failureRedirect : '/brutalfailure', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
-  }));
+  	}));
 
-  //Equip Routes
-  router.post('/equip', equipController.createEquip)
-  router.get('/equip/:category', equipController.retrieveEquipByCat)
-  router.delete('/equip', equipController.deleteEquip)
-  router.put('/equip', equipController.updateEquip)
+  	//Equip Routes
+  	router.post('/equip', equipController.createEquip)
+  	router.get('/equip/:category', equipController.retrieveEquipByCat)
+  	router.delete('/equip', equipController.deleteEquip)
+  	router.put('/equip', equipController.updateEquip)
 
-  app.use('/api/v1', router)
+  	app.use('/api/v1', router)
 
 }
   

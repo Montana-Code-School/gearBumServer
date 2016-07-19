@@ -2,6 +2,7 @@
 var bcrypt = require ('bcrypt-nodejs')
 var db = require('../config/database').getDB
 var _ = require('lodash')
+
 var properties = [
 	'email',
 	'password',
@@ -15,7 +16,6 @@ var idColumn = 'usersid'
 function User(){
 
 }
-
 
 User.findById =function(id, callback){
 	db(function(err, client){
