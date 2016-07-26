@@ -22,7 +22,7 @@ function connectMiddleware(req, res, next){
 }
 
 function getDB(callback){
-    pool = pool || new pg.Pool(config);
+    pool = pool || new pg.Pool(process.env.DATABASE_URL || config);
     pool.connect(callback)
 }
 
