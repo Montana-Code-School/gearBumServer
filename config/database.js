@@ -22,6 +22,7 @@ function connectMiddleware(req, res, next){
 }
 
 function getDB(callback){
+  console.log('CONNECTING TO HEROKU', process.env.DATABASE_URL)
     pool = pool || new pg.Pool(process.env.DATABASE_URL || config);
     pool.connect(callback)
 }
