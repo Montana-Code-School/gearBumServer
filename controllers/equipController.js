@@ -23,9 +23,16 @@ function updateEquip (req, res){
 	})
 }
 
+function retrieveAllEquip (req, res){
+	req.db.query(`select * from gb.gb_equip`, function(err, sqlRes){
+      res.json(sqlRes.rows)
+    })
+}
+
 module.exports = {
 	createEquip,
 	retrieveEquipByCat,
 	deleteEquip,
-	updateEquip
+	updateEquip,
+	retrieveAllEquip,
 }
