@@ -4,12 +4,6 @@ function createEquip (req, res){
 	})
 }
 
-function retrieveEquipByCat (req, res){
-	req.db.query(`select * from gb.gb_equip WHERE category = '${req.params.category}'`, function(err, sqlRes){
-      res.json(sqlRes.rows)
-    })
-}
-
 function deleteEquip (req, res){
 	req.db.query("DELETE FROM gb.gb_equip WHERE gb.gb_equip.equipid = 2", function(err, sqlRes){
 		res.json(sqlRes)
@@ -23,8 +17,20 @@ function updateEquip (req, res){
 	})
 }
 
+function retrieveEquipByCat (req, res){
+	req.db.query(`select * from gb.gb_equip WHERE category = '${req.params.category}'`, function(err, sqlRes){
+      res.json(sqlRes.rows)
+    })
+}
+
 function retrieveAllEquip (req, res){
 	req.db.query(`select * from gb.gb_equip`, function(err, sqlRes){
+      res.json(sqlRes.rows)
+    })
+}
+
+function retrieveEquipById (req, res){
+	req.db.query(`select * from gb.gb_equip WHERE equipid = '${req.params.equipid}'`, function(err, sqlRes){
       res.json(sqlRes.rows)
     })
 }
@@ -35,4 +41,5 @@ module.exports = {
 	deleteEquip,
 	updateEquip,
 	retrieveAllEquip,
+	retrieveEquipById
 }

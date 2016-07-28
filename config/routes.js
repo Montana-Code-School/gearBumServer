@@ -44,9 +44,11 @@ module.exports = function(app, passport) {
   	//Equip Routes
   	router.post('/equip', equipController.createEquip)
   	router.get('/equip/:category', equipController.retrieveEquipByCat)
+  	router.get('/equip', equipController.retrieveAllEquip)
+  	router.get('/equip/:equipid', equipController.retrieveEquipById)
   	router.delete('/equip', equipController.deleteEquip)
   	router.put('/equip', equipController.updateEquip)
-  	router.get('/equip', equipController.retrieveAllEquip)
+  	
 
   	app.use('/api/v1', router)
 
