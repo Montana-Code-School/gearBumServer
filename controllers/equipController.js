@@ -31,6 +31,10 @@ function retrieveAllEquip (req, res){
 
 function retrieveEquipById (req, res){
 	req.db.query(`select * from gb.gb_equip WHERE equipid = '${req.params.equipid}'`, function(err, sqlRes){
+	  if(err){
+	  	console.error(err)
+	  	return res.json({err: err})
+	  }
       res.json(sqlRes.rows)
     })
 }
