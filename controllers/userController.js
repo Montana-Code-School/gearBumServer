@@ -13,6 +13,7 @@ function login (req, res){
 function logout (req, res){
 	req.logout()
 	res.json({loggedOut: true})
+	console.log('user logged out')
 }
 
 

@@ -18,8 +18,9 @@ function User(){
 }
 
 User.findById =function(id, callback){
-	db(function(err, client){
+	db(function(err, client, done){
 		client.query(`SELECT * FROM ${table} WHERE ${idColumn}='${id}'`, (err, resp) =>{
+			done()
 			if (err) return callback(err);
 			if (resp.rows.length === 0) return callback (new Error('No user found'))
 			var user = new User()
@@ -33,7 +34,7 @@ User.findById =function(id, callback){
 }
 
 User.findOne =function(searchObj, callback){
-	db(function(err, client){
+	db(function(err, client, done){
 		var searchTerms = []
 		for (var key in searchObj){
 			searchTerms.push(`${key}='${searchObj[key]}'`)
@@ -42,6 +43,7 @@ User.findOne =function(searchObj, callback){
 		var queryString = `SELECT * FROM ${table} ${searchClause} LIMIT 1;`
 		console.log("Querying", queryString)
 		client.query(queryString, (err, resp) =>{
+			done()
 			if (err) return callback(err);
 			if (resp.rows.length === 0) return callback ()
 			var user = new User()
@@ -63,10 +65,11 @@ User.prototype.validPassword = function(password) {
 
 
 User.prototype.save =function(callback){
-	db((err, client)=>{
+	db((err, client, done)=>{
 		var queryString = `INSERT INTO ${table} (${properties.filter(property=> this[property]).join(', ')}) VALUES (${properties.filter(property=> this[property] !== undefined).map(property => `'${this[property]}'`).join(', ')}) RETURNING usersid;`
 		client.query(queryString, (err, resp) =>{
 			this.usersid = _.get(resp, 'rows[0].usersid', undefined)
+			done()
 			callback(err, resp)
 		} )
 	})
