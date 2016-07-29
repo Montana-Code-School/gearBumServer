@@ -1,14 +1,20 @@
 var pg = require('pg');
 
-var config = {
-  user: 'ghezewixgsxrga', //env var: PGUSER
-  database: 'd41mr9bqibsrom', //env var: PGDATABASE
-  password: 'jB3wNTUIQKlbXQXMgVLOHwoHqM', //env var: PGPASSWORD
-  host: 'ec2-54-235-95-188.compute-1.amazonaws.com',
+process.env.DATABASE_URL
+var parseDbUrl = require("parse-database-url");
+
+const localConfig = {
+  user: 'Soren', //env var: PGUSER
+  database: 'gearbum', //env var: PGDATABASE
+  password: '', //env var: PGPASSWORD
+  host: 'localhost',
   port: 5432, //env var: PGPORT
-  max: 10, // max number of clients in the pool
-  idleTimeoutMillis: 1000, // how long a client is allowed to remain idle before being closed
 };
+
+var config = process.env.DATABASE_URL ? parseDbUrl(process.env.DATABASE_URL) : localConfig;
+config.max = 10;
+config.idleTimeoutMillis = 1000;
+
 var pool
 
 function connectMiddleware(req, res, next){
@@ -16,7 +22,13 @@ function connectMiddleware(req, res, next){
       if(err) {
         return console.error('error fetching client from pool', err);
       }
+      var resSend = res.send
+      res.send = function(){
+        done()
+        return resSend.bind(res)(...arguments)
+      }
       req.db = client
+      req.db.done = done
       next()
     })
 }

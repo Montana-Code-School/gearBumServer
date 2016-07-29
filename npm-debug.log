@@ -1,5 +1,5 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'run', 'start' ]
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'start' ]
 2 info using npm@3.8.9
 3 info using node@v6.2.0
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
@@ -7,7 +7,7 @@
 6 silly lifecycle gear-bum-server@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle gear-bum-server@1.0.0~start: gear-bum-server@1.0.0
 8 verbose lifecycle gear-bum-server@1.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle gear-bum-server@1.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/Soren/react-native/serverGearBum/node_modules/.bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+9 verbose lifecycle gear-bum-server@1.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/Soren/react-native/serverGearBum/node_modules/.bin:/usr/local/bin:/Applications/Postgres.app/Contents/Versions/latest/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 10 verbose lifecycle gear-bum-server@1.0.0~start: CWD: /Users/Soren/react-native/serverGearBum
 11 silly lifecycle gear-bum-server@1.0.0~start: Args: [ '-c', 'node index.js' ]
 12 silly lifecycle gear-bum-server@1.0.0~start: Returned: code: 1  signal: null
@@ -25,7 +25,7 @@
 15 verbose pkgid gear-bum-server@1.0.0
 16 verbose cwd /Users/Soren/react-native/serverGearBum
 17 error Darwin 15.5.0
-18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "start"
+18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
 19 error node v6.2.0
 20 error npm  v3.8.9
 21 error code ELIFECYCLE
