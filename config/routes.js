@@ -42,7 +42,7 @@ module.exports = function(app, passport) {
   	}));
 
   	//Equip Routes
-  	router.post('/equip', equipController.createEquip)
+  	router.post('/equip/create', equipController.createEquip)
   	router.get('/equip/category/:category', equipController.retrieveEquipByCat)
   	router.get('/equip', equipController.retrieveAllEquip)
   	router.get('/equip/detail/:equipid', equipController.retrieveEquipById)
