@@ -1,5 +1,6 @@
 function createEquip (req, res){
-	req.db.query(`INSERT INTO gb.gb_equip VALUES ('${req.body.category}', '7/15/16', 'luke', '${req.body.price}', '${req.body.description}', '${req.body.imageAddress}', '${req.body.title}', '${req.body.latitude}' '${req.body.longitude}', False)`, function(err, sqlRes){
+	console.log('Create Equip')
+	req.db.query(`INSERT INTO gb.gb_equip VALUES ('${req.body.category}', '7/15/16', 'luke', '${req.body.price}', '${req.body.description}', '${req.body.imageAddress}', '${req.body.title}', 30, 45, False)`, function(err, sqlRes){
 		res.json(sqlRes)
 	})
 }
