@@ -46,7 +46,7 @@ module.exports = function(app, passport) {
   	router.get('/equip/category/:category', equipController.retrieveEquipByCat)
   	router.get('/equip', equipController.retrieveAllEquip)
   	router.get('/equip/detail/:equipid', equipController.retrieveEquipById)
-  	router.delete('/equip', equipController.deleteEquip)
+  	router.delete('/equip/:equipid', equipController.deleteEquip)
   	router.put('/equip', equipController.updateEquip)
   	
 

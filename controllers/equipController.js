@@ -5,7 +5,7 @@ function createEquip (req, res){
 }
 
 function deleteEquip (req, res){
-	req.db.query("DELETE FROM gb.gb_equip WHERE gb.gb_equip.equipid = 2", function(err, sqlRes){
+	req.db.query(`DELETE FROM gb.gb_equip WHERE gb.gb_equip.equipid = '${req.body.equipid}'`, function(err, sqlRes){
 		res.json(sqlRes)
 	})
 }
