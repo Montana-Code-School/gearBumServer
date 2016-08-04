@@ -13,7 +13,8 @@ var equipController = require('../controllers/equipController')
 module.exports = function(app, passport) {
 
  	//User Routes
-  	router.get('/getUsers', userController.retrieveAllUsers)
+  	router.get('/getUsers/:email', userController.retrieveUserByEmail)
+  	router.put('/updateUser/:email', userController.updateUserByEmail)
 	
 	router.post('/login', passport.authenticate('local-login', {
 	    successRedirect : '/api/v1/login/success', // redirect to the secure profile section
