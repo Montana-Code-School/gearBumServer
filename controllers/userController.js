@@ -1,4 +1,13 @@
 
+function retrieveUserByID (req, res){
+	req.db.query(`select * from gb.gb_users WHERE usersid = '${req.params.usersid}'`, function(err, sqlRes){
+      	if (err) {
+			res.json(Object.assign(err, {sqlError: true}));
+		} else {
+			res.json(sqlRes.rows)
+		}    
+	})
+}
 function retrieveUserByEmail (req, res){
 	req.db.query(`select * from gb.gb_users WHERE email = '${req.params.email}'`, function(err, sqlRes){
       	if (err) {
@@ -41,6 +50,7 @@ function logout (req, res){
 
 module.exports = {
 	updateUserByEmail,
+	retrieveUserByID,
 	retrieveUserByEmail,
 	login,
 	logout,
