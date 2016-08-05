@@ -50,8 +50,17 @@ function retrieveAllEquip (req, res){
     })
 }
 
-function retrieveEquipById (req, res){
+function retrieveByEquipId (req, res){
 	req.db.query(`select * from gb.gb_equip WHERE equipid = '${req.params.equipid}'`, function(err, sqlRes){
+	    if (err) {
+			res.json(Object.assign(err, {sqlError: true}));
+		} else {
+			res.json(sqlRes.rows)
+		} 
+    })
+}
+function retrieveByUserId (req, res){
+	req.db.query(`select * from gb.gb_equip WHERE usersid = '${req.params.usersid}'`, function(err, sqlRes){
 	    if (err) {
 			res.json(Object.assign(err, {sqlError: true}));
 		} else {
@@ -66,5 +75,6 @@ module.exports = {
 	deleteEquip,
 	updateEquip,
 	retrieveAllEquip,
-	retrieveEquipById
+	retrieveByEquipId,
+	retrieveByUserId
 }
