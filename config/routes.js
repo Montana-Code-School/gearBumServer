@@ -50,7 +50,7 @@ module.exports = function(app, passport) {
   	router.get('/equip/detail/:equipid', equipController.retrieveByEquipId)
   	router.get('/equip/userGear/:usersid', equipController.retrieveByUserId)
   	router.delete('/equip/:equipid', equipController.deleteEquip)
-  	router.put('/equip', equipController.updateEquip)
+  	router.put('/equip/:equipid', equipController.updateEquip)
   	
 
   	app.use('/api/v1', router)

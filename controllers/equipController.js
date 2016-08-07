@@ -1,5 +1,5 @@
 function createEquip (req, res){
-	var query = `INSERT INTO gb.gb_equip (category, date, usersid, price, description, photos, title, latitude, longitude, hidden) VALUES ('${req.body.category}', '7/15/16', '${req.body.usersid}', '${req.body.price}', '${req.body.description}', '${req.body.photos.join(' ')}', '${req.body.title}', '${req.body.latitude}', '${req.body.longitude}', False)`
+	var query = `INSERT INTO gb.gb_equip (category, date, usersid, price, description, photos, title, latitude, longitude, hidden) VALUES ('${req.body.category}', '${req.body.date}', '${req.body.usersid}', '${req.body.price}', '${req.body.description}', '${req.body.photos.join(' ')}', '${req.body.title}', '${req.body.latitude}', '${req.body.longitude}', False)`
 	req.db.query(query, function(err, sqlRes){
 		if (err) {
 			res.json(Object.assign(err, {sqlError: true}));
@@ -20,7 +20,7 @@ function deleteEquip (req, res){
 }
 
 function updateEquip (req, res){
-	//UPDATE table SET columnn name = new value WHERE column = old value
+	var query = `UPDATE gb.gb_equip SET (category, date, price, description, photos, title, latitude, longitude) = ('${req.body.category}', '${req.body.date}', '${req.body.price}', '${req.body.title}', '${req.body.photos.join(' ')}', '${req.body.title}', '${req.body.latitude}', '${req.body.longitude}') WHERE equipid = '${req.params.equipid}'`
 	req.db.query("UPDATE gb.gb_equip SET category = 'bike' WHERE category = 'boat'", function(err, sqlRes){
 		if (err) {
 			res.json(Object.assign(err, {sqlError: true}));
