@@ -10,7 +10,7 @@ function createEquip (req, res){
 }
 
 function deleteEquip (req, res){
-	req.db.query(`DELETE FROM gb.gb_equip WHERE gb.gb_equip.equipid = '${req.body.equipid}'`, function(err, sqlRes){
+	req.db.query(`DELETE FROM gb.gb_equip WHERE gb.gb_equip.equipid = '${req.params.equipid}'`, function(err, sqlRes){
 		if (err) {
 			res.json(Object.assign(err, {sqlError: true}));
 		} else {
@@ -21,7 +21,7 @@ function deleteEquip (req, res){
 
 function updateEquip (req, res){
 	var query = `UPDATE gb.gb_equip SET (category, date, price, description, photos, title, latitude, longitude) = ('${req.body.category}', '${req.body.date}', '${req.body.price}', '${req.body.title}', '${req.body.photos.join(' ')}', '${req.body.title}', '${req.body.latitude}', '${req.body.longitude}') WHERE equipid = '${req.params.equipid}'`
-	req.db.query("UPDATE gb.gb_equip SET category = 'bike' WHERE category = 'boat'", function(err, sqlRes){
+	req.db.query(query, function(err, sqlRes){
 		if (err) {
 			res.json(Object.assign(err, {sqlError: true}));
 		} else {
