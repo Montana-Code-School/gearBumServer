@@ -12,7 +12,7 @@ const localConfig = {
 };
 
 var config = process.env.DATABASE_URL ? parseDbUrl(process.env.DATABASE_URL) : localConfig;
-config.max = 10;
+config.max = 10000;
 config.idleTimeoutMillis = 1000;
 
 var pool
