@@ -23,7 +23,7 @@ function deleteEquip (req, res){
 function updateEquip (req, res){
 	var query = `UPDATE gb.gb_equip SET (category, date, price, description, photos, title, latitude, longitude) = ($1, $2, $3, $4, $5, $6, $7, $8) WHERE equipid = '${req.params.equipid}'`
 	var params = [req.body.category, req.body.date, req.body.price, req.body.description, req.body.photos.join(' '), req.body.title, req.body.latitude, req.body.longitude]
-	req.db.query(query, function(err, sqlRes){
+	req.db.query(query, params, function(err, sqlRes){
 		if (err) {
 			res.json(Object.assign(err, {sqlError: true}));
 		} else {

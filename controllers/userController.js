@@ -19,7 +19,9 @@ function retrieveUserByEmail (req, res){
 }
 
 function updateUserByEmail (req, res){
-	req.db.query(`UPDATE gb.gb_users SET (email, bio, username) = ('${req.body.email}','${req.body.bio}','${req.body.username}') WHERE email='${req.params.email}'`, function(err, sqlRes){
+	var query = `UPDATE gb.gb_users SET (email, bio, username) = ($1, $2, $3) WHERE email='${req.params.email}'`
+	var params = [req.body.email, req.body.bio, req.body.username]
+	req.db.query(query, params function(err, sqlRes){
       	if (err) {
 			res.json(Object.assign(err, {sqlError: true}));
 		} else {
